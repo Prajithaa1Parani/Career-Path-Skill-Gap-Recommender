@@ -1,0 +1,321 @@
+/* BLOCK 1: Global styling */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* BLOCK 2: Dashboard layout */
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* BLOCK 3: Sidebar */
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 32px 24px;
+}
+
+.sidebar h2 {
+  color: #6355dd;
+  font-size: 28px;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.sidebar p {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.sidebar nav a {
+  padding: 14px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar nav a:first-child,
+.sidebar nav a:hover {
+  background: #eeebff;
+  color: #6355dd;
+}
+
+/* BLOCK 4: Main workspace */
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 48px;
+}
+
+header {
+  margin-bottom: 32px;
+}
+
+header span {
+  color: #6355dd;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+header h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  margin: 14px 0;
+  color: #172033;
+}
+
+header p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* BLOCK 5: Dashboard cards */
+
+.panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px #17203305;
+}
+
+.panel h2 {
+  font-size: 21px;
+  margin: 0 0 10px;
+  color: #172033;
+}
+
+.panel p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* BLOCK 6: Resume upload */
+
+input[type="file"] {
+  width: 100%;
+  padding: 30px;
+  border: 2px dashed #c9c3ef;
+  border-radius: 12px;
+  background: #faf9ff;
+  color: #64748b;
+  cursor: pointer;
+}
+
+input::file-selector-button {
+  background: #6355dd;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+/* BLOCK 7: Manual skill input */
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  border: 1px solid #dce1e9;
+  border-radius: 10px;
+  font: inherit;
+  background: #ffffff;
+  color: #172033;
+  resize: vertical;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #6355dd;
+  box-shadow: 0 0 0 3px #6355dd15;
+}
+
+/* BLOCK 8: Primary button */
+
+button {
+  background: #6355dd;
+  color: white;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #5144c5;
+}
+
+/* BLOCK 9: Responsive layout */
+
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 24px;
+  }
+
+  header h1 {
+    font-size: 28px;
+  }
+}
+
+
+/* Career Analysis Results */
+
+#results {
+  scroll-margin-top: 24px;
+}
+
+#results > h2 {
+  margin-bottom: 18px;
+}
+
+#results > .skill-tags {
+  margin-bottom: 32px;
+}
+
+/* Skill tags */
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+
+.skill-tag,
+.matched-skill,
+.missing-skill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.skill-tag {
+  background: #eeebff;
+  color: #6355dd;
+  border: 1px solid #ddd6fe;
+}
+
+.matched-skill {
+  background: #ecfdf3;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.missing-skill {
+  background: #fff7ed;
+  color: #b45309;
+  border: 1px solid #fed7aa;
+}
+
+/* Career recommendation cards */
+
+.career-card {
+  padding: 26px;
+  margin-top: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.career-card:hover {
+  border-color: #b8afff;
+  box-shadow: 0 6px 24px #6355dd10;
+}
+
+.career-card h3 {
+  font-size: 22px;
+  color: #172033;
+  margin: 0 0 12px;
+}
+
+.career-card h4 {
+  font-size: 14px;
+  color: #475569;
+  margin: 24px 0 10px;
+}
+
+.career-card p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #6355dd;
+  margin-bottom: 12px;
+}
+
+/* Skill coverage progress bar */
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: #eeebff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6355dd, #9385ff);
+  border-radius: 20px;
+  transition: width 0.6s ease;
+}
+
+/* Loading state */
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+

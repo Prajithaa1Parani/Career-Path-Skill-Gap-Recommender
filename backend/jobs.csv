@@ -1,0 +1,13 @@
+job_role,required_skills
+Backend Developer,"java, ci/cd, security, css, rest, oop, dynamic analysis, microservices, tdd/bdd, performance tuning, html, spring framework, static analysis, circuit breaker, resiliency"
+Cloud Engineer,"aws, azure, python, terraform, cloudformation, powershell, cloud computing, git, kubernetes, gcp, jenkins, devops, docker, containerization, cloud architecture"
+Data Analyst,"data analysis, sql, data visualization, tableau, python, communication, power bi, excel, r, communication skills, project management, reporting, business intelligence, data analytics, problem solving"
+Data Engineer,"python, sql, data engineering, data modeling, data warehousing, spark, data analysis, aws, java, data pipelines, etl, data quality, snowflake, data integration, scala"
+Data Scientist,"python, machine learning, data science, sql, r, data visualization, data analysis, statistics, tableau, communication, spark, aws, data mining, computer science, hadoop"
+DevOps Engineer,"python, devops, jenkins, kubernetes, aws, terraform, docker, ansible, git, bash, linux, ci/cd, automation, java, monitoring"
+Frontend Developer,"javascript, css, angular, html, react, typescript, aws, html5, git, unit testing, node.js, software development, css3, webpack, devops"
+Full Stack Developer,"javascript, java, python, html, css, react, agile, full stack development, aws, typescript, spring boot, angular, mysql, software development, sql"
+Java Developer,"java, spring boot, spring, sql, git, javascript, jenkins, microservices, aws, hibernate, maven, oracle, communication skills, html, j2ee"
+Machine Learning Engineer,"machine learning, python, pytorch, tensorflow, data science, sql, natural language processing, deep learning, data engineering, r, scikitlearn, java, data analysis, git, software engineering"
+Python Developer,"python, sql, git, docker, flask, django, kubernetes, javascript, aws, machine learning, communication, css, numpy, pandas, communication skills"
+Software Engineer,"python, java, software development, software engineering, c#, javascript, c++, git, sql, linux, docker, aws, kubernetes, agile, react"
