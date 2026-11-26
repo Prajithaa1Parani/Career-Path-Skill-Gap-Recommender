@@ -1,19 +1,24 @@
-import pandas as pd
+import csv
+import numpy as np
 import spacy
 import faiss
 from pathlib import Path
 from spacy.matcher import PhraseMatcher
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
+from fastembed.common.model_description import ModelSource, PoolingType
 
 # BLOCK 1: Load dataset and NLP model
-jobs = pd.read_csv(Path(__file__).with_name("jobs.csv"))
+# jobs is a list of rows like {"job_role": ..., "required_skills": ...}
+with open(Path(__file__).with_name("jobs.csv"), encoding="utf-8") as file:
+    jobs = list(csv.DictReader(file))
+
 nlp = spacy.load("en_core_web_sm")
 
 # BLOCK 2: Create skill vocabulary
 skill_list = set()
 
-for text in jobs["required_skills"]:
-    skill_list.update(text.split(", "))
+for job in jobs:
+    skill_list.update(job["required_skills"].split(", "))
 
 # BLOCK 3: Phrase Matching
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
@@ -51,15 +56,24 @@ def extract_skills(text):
     return sorted(phrase_skills | entity_skills)
 
 # BLOCK 6: Sentence embeddings
-model = SentenceTransformer(
-    "all-MiniLM-L6-v2",
-    device="cpu"
+# Uses the compressed (quantized) all-MiniLM-L6-v2 model:
+# 23 MB instead of 90 MB, so it fits on the free Vercel server
+TextEmbedding.add_custom_model(
+    model="all-MiniLM-L6-v2-quantized",
+    sources=ModelSource(hf="Xenova/all-MiniLM-L6-v2"),
+    model_file="onnx/model_quantized.onnx",
+    pooling=PoolingType.MEAN,
+    normalization=True,
+    dim=384
 )
 
-job_embeddings = model.encode(
-    jobs["required_skills"].tolist(),
-    normalize_embeddings=True
-)
+model = TextEmbedding("all-MiniLM-L6-v2-quantized")
+
+def embed(texts):
+    # Returns one normalized 384-dimension vector per text
+    return np.array(list(model.embed(texts)))
+
+job_embeddings = embed([job["required_skills"] for job in jobs])
 
 # BLOCK 7: FAISS similarity search
 index = faiss.IndexFlatIP(job_embeddings.shape[1])
@@ -69,20 +83,19 @@ def recommend_roles(user_skills):
     if not user_skills:
         return []
 
-    embedding = model.encode(
-        [", ".join(user_skills)],
-        normalize_embeddings=True
-    )
+    embedding = embed([", ".join(user_skills)])
 
     _, indices = index.search(embedding, min(3, len(jobs)))
 
-    return jobs.iloc[indices[0]]["job_role"].tolist()
+    return [jobs[i]["job_role"] for i in indices[0]]
 
 # BLOCK 8: Skill gap analysis
 def analyze_skill_gap(user_skills, role):
-    required = jobs.loc[
-        jobs["job_role"] == role, "required_skills"
-    ].iloc[0]
+    required = next(
+        job["required_skills"]
+        for job in jobs
+        if job["job_role"] == role
+    )
 
     required_skills = set(required.split(", "))
     current_skills = set(user_skills)
